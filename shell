@@ -1,0 +1,52 @@
+linux命令
+
+ps -ef | grep [关键字] 查询进程
+
+docker命令
+docker ps 列出正在运行容器
+docker ps -a 列出所有容器
+docker ps  -l 最近创建的容器
+docker start 容器ID
+docker stop 容器ID
+docker restart 容器ID
+docker rm 容器ID
+docker logs 容器ID
+docker images 列出所有镜像
+docker rmi 镜像ID
+docker exec -it [容器ID] /bin/bash 进入容器环境
+docker attach  [容器ID]
+
+apk反编译
+cd apk
+apktool d hy_1.106.apk
+
+conda命令
+conda info --envs
+conda create --name python362 python=3.6.2
+source activate python362
+source deactivat
+conda remove --name python34 --all
+
+ADSL拨号
+/sbin/ifdown ppp0
+/sbin/ifup ppp0
+
+tinyproxy启动
+systemctl enable tinyproxy.service 开机启动
+systemctl restart tinyproxy.service 重启
+systemctl stop tinyproxy.service
+systemctl start tinyproxy.service
+systemctl status tinyproxy.service 查询状态
+防火墙开放你的配置的代理端口：
+iptables -I INPUT -p tcp --dport 8888 -j ACCEPT
+curl -x 183.166.161.15:8888 httpbin.org/get 代理测试
+
+supervisor命令
+supervisord
+supervisorctl
+> status    # 查看程序状态
+> stop       # 关闭程序
+> start       # 启动程序
+> restart    # 重启程序
+> reread    ＃ 读取有更新（增加）的配置文件，不会启动新添加的程序
+> update    ＃ 重启配置文件修改过的程序
