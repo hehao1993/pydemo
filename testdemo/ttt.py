@@ -1,6 +1,3 @@
-import json
-import re
-
 print("中 国".replace(" ", ""))
 print("中 国".replace(" ", ""))
 print("中 国".replace("\u00A0", ""))
