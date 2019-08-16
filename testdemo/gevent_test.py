@@ -7,8 +7,11 @@
 常用第三方模块gevent和greenlet。（本质上，gevent是对greenlet的高级封装，因此一般用它就行，这是一个相当高效的模块。）
 """
 import grequests as grequests
-from gevent import monkey; monkey.patch_all()
+
 import gevent
+from gevent import monkey;
+monkey.patch_all()
+
 import requests
 
 urls = [
