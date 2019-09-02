@@ -1,5 +1,5 @@
 linux命令
-
+nohup python ProxyServer.py > /dev/null 2>&1 & 后台运行（不加nohup关掉终端后会停止）
 ps -ef | grep [关键字] 查询进程
 
 docker命令

@@ -6,7 +6,9 @@
 协程的适用场景：当程序中存在大量不需要CPU的操作时（IO）。
 常用第三方模块gevent和greenlet。（本质上，gevent是对greenlet的高级封装，因此一般用它就行，这是一个相当高效的模块。）
 """
-import grequests as grequests
+import threading
+import time
+from concurrent.futures import ThreadPoolExecutor, wait
 
 import gevent
 from gevent import monkey;
@@ -22,12 +24,25 @@ urls = [
 
 
 def f(url):
+    time.sleep(2)
+    # threading.Thread(target=ff).start()
     print('GET: %s' % url)
-    resp = requests.get(url)
-    print('%d bytes received from %s.' % (len(resp.text), url))
 
 
-gevent.joinall([gevent.spawn(f, u) for u in urls])
+def ff():
+    time.sleep(2)
+    print('22222222222222')
+
+
+while True:
+    # executor = ThreadPoolExecutor(max_workers=2)
+    # all_tasks = []
+    # for u in urls:
+    #     all_tasks.append(executor.submit(f, u))
+    # wait(all_tasks)
+    gevent.joinall([gevent.spawn(f, u) for u in urls])
+    print('end')
+    time.sleep(60*10)
 
 # grequests 模块相当于是封装了gevent的requests模块
 # grequests.map((grequests.get(u) for u in urls))
