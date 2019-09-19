@@ -1,0 +1,165 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>nba2kol2q</title>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $("#shaixuan").click(function(){
+                var para = {
+                    'page': 1,
+                    'lowPrice': 0,
+                    'highPrice': 0,
+                    'collapseAll': false,
+                    'openid': '112D1F37C43B195B0B95611CDC3DE5AE',
+                    'access_token': '03923735251FF74FF795BD980325263E',
+                    'orderBy': 'OverAll',
+                    'orientation': 'desc'
+                };
+                obj = $('#shaixuanform').serializeArray();
+                $.each(obj, function () {
+                    para[this.name] = this.value;
+                });
+                $.get("http://localhost:8080/rosterList/rosterList", para, function(data,status){
+                    alert("数据: " + data + "\n状态: " + status);
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+<form id="shaixuanform">
+    系列
+    <select name="cardType" id="cardType">
+        <option value="-1" selected>不限</option>
+        <option value="1">现役</option>
+        <option value="2">复刻</option>
+        <option value="3">历史</option>
+    </select>
+    位置
+    <select name="pos" id="pos">
+        <option value="-1" selected>不限</option>
+        <option value="0">控卫</option>
+        <option value="1">分位</option>
+        <option value="2">小前</option>
+        <option value="3">大前</option>
+        <option value="4">中锋</option>
+    </select>
+    类型
+    <select name="playerSort" id="playerSort">
+        <option value="-1" selected>不限</option>
+        <option value="0">全能型球员</option>
+        <option value="1">攻防双向球员</option>
+        <option value="2">防守型球员</option>
+        <option value="3">进攻万花筒</option>
+        <option value="4">进攻组织者</option>
+        <option value="5">突破精英</option>
+        <option value="6">篮下得分手</option>
+        <option value="7">背身得分手</option>
+        <option value="8">篮板精英</option>
+        <option value="9">中距离终结者</option>
+        <option value="10">三分射手</option>
+        <option value="11">接球投篮射手</option>
+        <option value="12">禁区守护者</option>
+        <option value="13">外线封锁者</option>
+        <option value="14">挡拆战术专家</option>
+        <option value="15">潜力待发掘</option>
+    </select>
+    徽章
+    <select name="badges" id="badges" multiple="multiple">
+        <option value="-1" selected>不限</option>
+        <option value="1">领袖</option>
+        <option value="2">关键先生</option>
+        <option value="3">神经刀</option>
+        <option value="4">热拔插</option>
+        <option value="5">铁血</option>
+        <option value="6">冠军DNA</option>
+        <option value="8">组织核心</option>
+        <option value="9">防守支柱</option>
+        <option value="10">硬汉</option>
+        <option value="22">底角三分射手</option>
+        <option value="23">中距离射手</option>
+        <option value="24">远距离神射手</option>
+        <option value="25">射程无限</option>
+        <option value="26">高难度投篮王</option>
+        <option value="27">挡拆投篮手</option>
+        <option value="28">坚韧的分手</option>
+        <option value="29">接球投篮手</option>
+        <option value="30">空接终结者</option>
+        <option value="31">隔扣达人</option>
+        <option value="32">特技演员</option>
+        <option value="33">抛投大师</option>
+        <option value="34">补篮之王</option>
+        <option value="35">挡拆高手</option>
+        <option value="36">强力终结者</option>
+        <option value="37">背身旋转技师</option>
+        <option value="38">沉底步大师</option>
+        <option value="39">上下假动作高手</option>
+        <option value="40">脚踝终结者</option>
+        <option value="41">花式传球手</option>
+        <option value="42">快攻发起者</option>
+        <option value="43">挡拆战术大师</option>
+        <option value="44">空接传球者</option>
+        <option value="45">十分美</option>
+        <option value="46">精英篮板手</option>
+        <option value="48">进攻犯规制造者</option>
+        <option value="49">持球防守精英</option>
+        <option value="50">挡拆躲闪者</option>
+        <option value="51">持球抢断专家</option>
+        <option value="52">护框大师</option>
+        <option value="53">追帽大师</option>
+        <option value="54">好斗者</option>
+        <option value="55">铜墙铁壁</option>
+        <option value="56">单人快攻</option>
+    </select>
+    球队
+    <select name="teamId" id="teamId">
+        <option value="-1" selected>不限</option>
+        <option value="0">76人</option>
+        <option value="1">雄鹿</option>
+        <option value="2">奇才</option>
+        <option value="3">公牛</option>
+        <option value="4">骑士</option>
+        <option value="5">凯尔特人</option>
+        <option value="6">快船</option>
+        <option value="8">灰熊</option>
+        <option value="9">老鹰</option>
+        <option value="10">热火</option>
+        <option value="11">鹈鹕</option>
+        <option value="12">爵士</option>
+        <option value="13">国王</option>
+        <option value="14">尼克斯</option>
+        <option value="15">湖人</option>
+        <option value="16">魔术</option>
+        <option value="17">独行侠</option>
+        <option value="18">篮网</option>
+        <option value="19">掘金</option>
+        <option value="20">步行者</option>
+        <option value="21">活塞</option>
+        <option value="22">猛龙</option>
+        <option value="23">火箭</option>
+        <option value="24">雷霆</option>
+        <option value="25">马刺</option>
+        <option value="26">太阳</option>
+        <option value="27">森林狼</option>
+        <option value="28">开拓者</option>
+        <option value="29">勇士</option>
+        <option value="31">黄蜂</option>
+        <option value="501">自由球员</option>
+    </select>
+    突破
+    <select name="grade" id="grade">
+        <option value="-1" selected>不限</option>
+        <option value="1">1突</option>
+        <option value="2">2突</option>
+        <option value="3">3突</option>
+        <option value="4">4突</option>
+        <option value="5">5突</option>
+        <option value="6">6突</option>
+        <option value="7">7突</option>
+    </select>
+</form>
+<button id="shaixuan">筛选</button>
+
+</body>
+</html>
