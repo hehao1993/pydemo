@@ -1,6 +1,22 @@
 linux命令
+
+后台启动
 nohup python ProxyServer.py > /dev/null 2>&1 & 后台运行（不加nohup关掉终端后会停止）
+
 ps -ef | grep [关键字] 查询进程
+
+tail -f /home/logs/sina_weibo_v3/CrawlLikes.log
+
+定时任务
+sudo service cron start  # 启动服务
+sudo service cron stop  # 关闭服务
+sudo service cron restart  # 重启服务
+sudo service cron reload  # 重新载入配置
+pgrep cron  # 返回一个进程ID  则表示正在运行
+crontab -l #列出某个用户cron服务的详细内容
+crontab -e #编辑某个用户的cron服务
+
+free -m 内存使用
 
 docker命令
 docker ps 列出正在运行容器
