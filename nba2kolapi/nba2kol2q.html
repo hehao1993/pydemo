@@ -11,8 +11,6 @@
                     'lowPrice': 0,
                     'highPrice': 0,
                     'collapseAll': false,
-                    'openid': '112D1F37C43B195B0B95611CDC3DE5AE',
-                    'access_token': '03923735251FF74FF795BD980325263E',
                     'orderBy': 'OverAll',
                     'orientation': 'desc'
                 };
@@ -20,7 +18,7 @@
                 $.each(obj, function () {
                     para[this.name] = this.value;
                 });
-                $.get("http://localhost:8080/rosterList/rosterList", para, function(data,status){
+                $.get("http://localhost:8080/rosterList", para, function(data,status){
                     alert("数据: " + data + "\n状态: " + status);
                 });
             });
