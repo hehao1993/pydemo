@@ -120,3 +120,7 @@ print('数据表的相关性分析\n', df.corr())
 # =======================================================================================
 print('写入Excel\n', df.to_excel('df_to_excel.xlsx', sheet_name='bluewhale_cc'))
 print('写入到CSV\n', df.to_csv('df_to_csv.csv'))
+
+df_gp = df.groupby('group')
+for i, j in df_gp:
+    print('分组', i, '\n', j)
