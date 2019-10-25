@@ -10,6 +10,7 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import cross_val_predict
 from sklearn.model_selection import cross_val_score
 from sklearn import linear_model
+import matplotlib.pyplot as plt
 
 
 def train(data):
@@ -18,9 +19,9 @@ def train(data):
     # print(data.corr())
 
     # 特征选择:使用与目标变量的相关性强的变量作为最终的特征变量
-    x = data[['comment', 'like', 'share']]
-    y = data['play']
-    selectKBest = SelectKBest(f_regression, k=3)  # k=4或者k='all'
+    x = data[['a', 'b']]
+    y = data['c']
+    selectKBest = SelectKBest(f_regression, k='all')  # k=4或者k='all'
     bestFeature = selectKBest.fit_transform(x, y.values.ravel())
     features = data[x.columns[selectKBest.get_support()]]
 
@@ -31,7 +32,7 @@ def train(data):
     features = scaler.transform(features)
 
     # 数据集拆分
-    x_train, x_test, y_train, y_test = train_test_split(features, y, test_size=0.3, random_state=33)
+    x_train, x_test, y_train, y_test = train_test_split(features, y, test_size=0.2, random_state=33)
     y_train = y_train.values.ravel()
 
     # 线性回归模型
@@ -52,7 +53,7 @@ def train(data):
 
 
 def predict(data):
-    x = data[['comment', 'like', 'share']]
+    x = data[['a', 'b']]
 
     # 加载特征归一化
     scaler = joblib.load('scaler')
@@ -62,24 +63,22 @@ def predict(data):
     lr = joblib.load('lr.pkl')
 
     y_predict = {
-        'real_val': np.array(data['play']),
+        'real_val': np.array(data['c']),
         'predict_val': lr.predict(x),
     }
     y_predict = pd.DataFrame(y_predict).applymap(lambda n: int(n))
-    print(y_predict)
+    # print(y_predict)
+    y_predict.plot(y=['real_val', 'predict_val'])
+    plt.show()
 
 
 if __name__ == '__main__':
-    fileList = os.listdir('data')
-    merge_data = pd.DataFrame()
-    for file in fileList:
-        print(f'【{file}】')
-        train_data = pd.DataFrame(pd.read_excel(f'data/{file}'))
-        train(train_data)
-        merge_data = merge_data.append(train_data, sort=False, ignore_index=True)
-    print('【不分类合并】')
-    train(merge_data)
+    df = pd.DataFrame(np.random.randn(100, 2), columns=list('ab'))
+    df['c'] = list(map(lambda x, y: x*x+y, df['a'], df['b']))
+    print(df)
+    train(df)
 
-    predict_data = pd.read_excel('data/二次元.xlsx')
-    # predict_data = pd.DataFrame([[1597, 32487, 40, 332204]], columns=['comment', 'like', 'share', 'play'])
-    predict(predict_data)
+    df = pd.DataFrame(np.random.randn(100, 2), columns=list('ab'))
+    df['c'] = list(map(lambda x, y: x*x+y, df['a'], df['b']))
+    predict(df)
+
