@@ -1,7 +1,8 @@
-from wtforms import Form, BooleanField, StringField, PasswordField, validators
+from wtforms import BooleanField, StringField, PasswordField, SubmitField, validators, Label
+from flask_wtf import FlaskForm
 
 
-class RegistrationForm(Form):
+class RegistrationForm(FlaskForm):
     username = StringField('Username', [validators.Length(min=4, max=25)])
     password = PasswordField('New Password', [
         validators.DataRequired(),
@@ -9,8 +10,11 @@ class RegistrationForm(Form):
     ])
     confirm = PasswordField('Repeat Password')
     accept_tos = BooleanField('I accept the TOS', [validators.DataRequired()])
+    submit = SubmitField('Sign In')
 
 
-class LoginForm(Form):
+class LoginForm(FlaskForm):
     username = StringField('Username', [validators.Length(min=4, max=25)])
     password = PasswordField('New Password', [validators.DataRequired()])
+    remember = BooleanField('Remember me')
+    submit = SubmitField('Log In')

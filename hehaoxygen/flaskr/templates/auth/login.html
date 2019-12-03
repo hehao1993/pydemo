@@ -1,23 +1,31 @@
-{% extends 'base.html' %}
-
-{% block header %}
-  <h1>{% block title %}Log In{% endblock %}</h1>
-{% endblock %}
-
-{% block content %}
-  <form method="post">
-    <label for="username">Username</label>
-    <input name="username" id="username" required>
-    <label for="password">Password</label>
-    <input type="password" name="password" id="password" required>
-    <input type="submit" value="Log In">
-  </form>
+{% from 'bootstrap/utils.html' import render_static %}
+{% from 'bootstrap/utils.html' import render_messages %}
 {% from 'bootstrap/form.html' import render_field %}
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-<form method="post">
+    {{ render_static('css', 'signin.css') }}
+    <!-- Bootstrap CSS -->
+    {{ bootstrap.load_css() }}
+
+    <title>Log In - Flaskr</title>
+</head>
+<body>
+<form method="post" class="form-signin">
+    <img class="mb-4" src="" alt="" width="72" height="72">
+    <h1 class="h3 mb-3 font-weight-normal">Please log in</h1>
+    {{ render_messages() }}
     {{ form.csrf_token() }}
     {{ render_field(form.username) }}
     {{ render_field(form.password) }}
-    {{ render_field(form.submit) }}
+    {{ render_field(form.remember) }}
+    {{ render_field(form.submit, button_map={'submit': 'lg btn-primary btn-block'}) }}
+    <p class="mt-5 mb-3 text-muted">&copy; 2017-2019</p>
 </form>
-{% endblock %}
+{{ bootstrap.load_js() }}
+</body>
+</html>

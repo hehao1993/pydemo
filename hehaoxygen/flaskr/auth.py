@@ -2,7 +2,7 @@ import functools
 from flask import Blueprint, flash, g, redirect, render_template, request, session, url_for
 from werkzeug.security import check_password_hash, generate_password_hash
 from flaskr.db import get_db
-from flaskr.form import RegistrationForm
+from flaskr.form import RegistrationForm, LoginForm
 
 bp = Blueprint('auth', __name__, url_prefix='/auth')
 
@@ -45,14 +45,14 @@ def register():
             db.commit()
             return redirect(url_for('auth.login'))
 
-        flash(error)
+        flash(error, 'danger')
 
     return render_template('auth/register.html', form=form)
 
 
 @bp.route('/login', methods=('GET', 'POST'))
 def login():
-    form = RegistrationForm(request.form)
+    form = LoginForm(request.form)
     if request.method == 'POST':
         username = form.username.data
         password = form.password.data
@@ -72,7 +72,7 @@ def login():
             session['user_id'] = user['id']
             return redirect(url_for('index'))
 
-        flash(error)
+        flash(error, 'danger')
 
     return render_template('auth/login.html', form=form)
 
