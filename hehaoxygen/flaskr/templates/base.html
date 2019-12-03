@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+    {% block head %}
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    {% block styles %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <!-- Bootstrap CSS -->
+    {{ bootstrap.load_css() }}
+    {% endblock %}
+
+    <title>{% block title %}{% endblock %} - Flaskr</title>
+    {% endblock %}
+</head>
+<body>
+{% from 'bootstrap/nav.html' import render_nav_item %}
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="navbar-nav mr-auto">
+        {{ render_nav_item('index', 'Home') }}
+        {% if g.user %}
+            {{ g.user['username'] }}
+            {{ render_nav_item('auth.logout', 'Log Out') }}
+        {% else %}
+            {{ render_nav_item('auth.register', 'Register') }}
+            {{ render_nav_item('auth.login', 'Log In') }}
+        {% endif %}
+    </div>
+</nav>
+
+<section class="content">
+    <header>
+        {% block header %}{% endblock %}
+    </header>
+    {% for message in get_flashed_messages() %}
+    <div class="flash">{{ message }}</div>
+    {% endfor %}
+    <!-- Your page content -->
+    {% block content %}{% endblock %}
+</section>
+<div id="footer">
+    {% block footer %}
+    &copy; Copyright 2010 by <a href="#">HEHAO</a>.
+    {% endblock %}
+</div>
+{% block scripts %}
+<!-- Optional JavaScript -->
+{{ bootstrap.load_js() }}
+{% endblock %}
+</body>
+</html>
