@@ -1,28 +1,20 @@
 import functools
-from flask import Blueprint, flash, g, redirect, render_template, request, session, url_for
+import flask_login
+from flask import Blueprint, flash, g, redirect, render_template, request, url_for
+from flask_login import current_user
 from werkzeug.security import check_password_hash, generate_password_hash
+
+from flaskr.User import get_user_by_name, User
 from flaskr.db import get_db
 from flaskr.form import RegistrationForm, LoginForm
 
 bp = Blueprint('auth', __name__, url_prefix='/auth')
 
 
-@bp.before_app_request
-def load_logged_in_user():
-    user_id = session.get('user_id')
-
-    if user_id is None:
-        g.user = None
-    else:
-        g.user = get_db().execute(
-            'SELECT * FROM user WHERE id = ?', (user_id,)
-        ).fetchone()
-
-
 @bp.route('/register', methods=('GET', 'POST'))
 def register():
     form = RegistrationForm(request.form)
-    if request.method == 'POST' and form.validate():
+    if request.method == 'POST' and form.validate_on_submit():
         username = form.username.data
         password = form.password.data
         db = get_db()
@@ -32,9 +24,7 @@ def register():
             error = 'Username is required.'
         elif not password:
             error = 'Password is required.'
-        elif db.execute(
-            'SELECT id FROM user WHERE username = ?', (username,)
-        ).fetchone() is not None:
+        elif get_user_by_name(username) is not None:
             error = 'User {} is already registered.'.format(username)
 
         if error is None:
@@ -53,14 +43,11 @@ def register():
 @bp.route('/login', methods=('GET', 'POST'))
 def login():
     form = LoginForm(request.form)
-    if request.method == 'POST':
+    if request.method == 'POST' and form.validate_on_submit():
         username = form.username.data
         password = form.password.data
-        db = get_db()
         error = None
-        user = db.execute(
-            'SELECT * FROM user WHERE username = ?', (username,)
-        ).fetchone()
+        user = get_user_by_name(username)
 
         if user is None:
             error = 'Incorrect username.'
@@ -68,8 +55,9 @@ def login():
             error = 'Incorrect password.'
 
         if error is None:
-            session.clear()
-            session['user_id'] = user['id']
+            fl_user = User()
+            fl_user.id = user['id']
+            flask_login.login_user(fl_user)
             return redirect(url_for('index'))
 
         flash(error, 'danger')
@@ -79,14 +67,14 @@ def login():
 
 @bp.route('/logout')
 def logout():
-    session.clear()
+    flask_login.logout_user()
     return redirect(url_for('index'))
 
 
 def login_required(view):
     @functools.wraps(view)
     def wrapped_view(**kwargs):
-        if g.user is None:
+        if not current_user.is_authenticated:
             return redirect(url_for('auth.login'))
 
         return view(**kwargs)

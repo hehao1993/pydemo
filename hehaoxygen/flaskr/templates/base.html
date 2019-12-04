@@ -31,8 +31,8 @@
             {{ render_nav_item('index', 'Home', use_li=True) }}
         </ul>
         <ul class="navbar-nav">
-            {% if g.user %}
-            {{ g.user['username'] }}
+            {% if current_user.is_authenticated %}
+            {{ current_user['username'] }}
             {{ render_nav_item('auth.logout', 'Log Out', use_li=True) }}
             {% else %}
             {{ render_nav_item('auth.login', 'Log In', use_li=True) }}
@@ -44,6 +44,7 @@
 {{ render_messages() }}
 
 <main class="container">
+    {% block header %}{% endblock %}
     {% block content %}{% endblock %}
 </main>
 
