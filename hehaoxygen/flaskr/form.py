@@ -1,4 +1,4 @@
-from wtforms import BooleanField, StringField, PasswordField, SubmitField, validators, Label
+from wtforms import BooleanField, StringField, PasswordField, SubmitField, validators, TextAreaField
 from flask_wtf import FlaskForm
 
 
@@ -18,3 +18,9 @@ class LoginForm(FlaskForm):
     password = PasswordField('New Password', [validators.DataRequired()])
     remember = BooleanField('Remember me')
     submit = SubmitField('Log In')
+
+
+class ThreeForm(FlaskForm):
+    title = StringField('Title', [validators.Length(min=2, max=25)])
+    script = TextAreaField('Script', [validators.DataRequired()])
+    submit = SubmitField('Submit')
