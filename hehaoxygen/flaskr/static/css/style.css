@@ -1,3 +1,19 @@
 .navbar {
     background: linear-gradient(to bottom, #000000 50%,#1d1d1d 97%,#333333 97%);
 }
+.bg-dark {
+    background-color: #000000!important;
+}
+.three-img {
+    -webkit-transform: scale(1.2);
+    -ms-transform: scale(1.2);
+    transform: scale(1.2);
+    -webkit-transition: 0.9s;
+    -o-transition: 0.9s;
+    transition: 0.9s;
+}
+.three-img:hover {
+    -webkit-transform: scale(1);
+    -ms-transform: scale(1);
+    transform: scale(1);
+}

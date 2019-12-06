@@ -10,15 +10,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     {% block styles %}
-    {{ render_static('css', 'css/style.css') }}
     <!-- Bootstrap CSS -->
     {{ bootstrap.load_css() }}
+    {{ render_static('css', 'css/style.css') }}
     {% endblock %}
 
     <title>{% block title %}{% endblock %} - Flaskr</title>
     {% endblock %}
 </head>
-<body>
+<body class="bg-dark text-white-50">
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <a class="navbar-brand mb-0 h1" href="#">Flaskr</a>

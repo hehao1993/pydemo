@@ -9,16 +9,16 @@
 <div class="row">
     {% for three in threes %}
     <div class="col-md-4 col-sm-6">
-        <div class="card">
+        <div class="card bg-dark">
             <a href="{{ url_for('three.detail', id=three['id']) }}">
-                <img class="card-img-top" src="{{ url_for('static', filename='img/001.png') }}" alt="Card image cap">
+                <img class="card-img-top three-img" src="{{ url_for('static', filename='img/001.png') }}" alt="Card image cap">
             </a>
             <div class="card-body">
                 <h4 class="card-title">{{ three['title'] }}</h4>
                 <p class="card-text">by {{ three['username'] }} on {{ three['created'].strftime('%Y-%m-%d') }}</p>
                 {% if current_user.id == three['author_id'] %}
-                <a href="{{ url_for('three.update', id=three['id']) }}" class="btn btn-primary">Edit</a>
-                <a href="{{ url_for('three.delete', id=three['id']) }}" class="btn btn-danger"
+                <a href="{{ url_for('three.update', id=three['id']) }}" class="btn btn-outline-secondary btn-sm">Edit</a>
+                <a href="{{ url_for('three.delete', id=three['id']) }}" class="btn btn-outline-secondary btn-sm"
                    onclick="return confirm('Are you sure?');">Delete</a>
                 {% endif %}
             </div>
